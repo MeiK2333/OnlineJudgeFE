@@ -13,10 +13,11 @@ export default {
       params
     })
   },
-  getAnnouncementList (offset, limit) {
+  getAnnouncementList (offset, limit, keyword) {
     let params = {
       offset: offset,
-      limit: limit
+      limit: limit,
+      keyword: keyword
     }
     return ajax('announcement', 'get', {
       params
@@ -177,10 +178,11 @@ export default {
       }
     })
   },
-  getContestAnnouncementList (contestId) {
+  getContestAnnouncementList (contestId, keyword) {
     return ajax('contest/announcement', 'get', {
       params: {
-        contest_id: contestId
+        contest_id: contestId,
+        keyword: keyword
       }
     })
   },

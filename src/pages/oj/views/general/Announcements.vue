@@ -3,9 +3,30 @@
     <div slot="title">
       {{title}}
     </div>
+
     <div slot="extra">
-      <Button v-if="listVisible" type="info" @click="init" :loading="btnLoading">{{$t('m.Refresh')}}</Button>
-      <Button v-else type="ghost" icon="ios-undo" @click="goBack">{{$t('m.Back')}}</Button>
+      <ul class="filter">
+        <template  v-if="listVisible">
+        <li>
+          <Input
+            placeholder="keyword"
+            @on-enter="filterByKeyword"
+            v-model="keyword"
+            icon="ios-search-strong"/>
+        </li>
+        <li>
+          <Button type="info" @click="filterByKeyword()">
+            <Icon type="refresh"></Icon>
+            {{$t('m.Reset')}}
+          </Button>
+        </li>
+        </template>
+        <template v-else>
+          <li>
+            <Button type="ghost" icon="ios-undo" @click="goBack">{{$t('m.Back')}}</Button>
+          </li>
+        </template>
+      </ul>
     </div>
 
     <transition-group name="announcement-animate" mode="in-out">
@@ -54,7 +75,8 @@
         btnLoading: false,
         announcements: [],
         announcement: '',
-        listVisible: true
+        listVisible: true,
+        keyword: ''
       }
     },
     mounted () {
@@ -70,7 +92,7 @@
       },
       getAnnouncementList (page = 1) {
         this.btnLoading = true
-        api.getAnnouncementList((page - 1) * this.limit, this.limit).then(res => {
+        api.getAnnouncementList((page - 1) * this.limit, this.limit, this.keyword).then(res => {
           this.btnLoading = false
           this.announcements = res.data.data.results
           this.total = res.data.data.total
@@ -80,7 +102,7 @@
       },
       getContestAnnouncementList () {
         this.btnLoading = true
-        api.getContestAnnouncementList(this.$route.params.contestID).then(res => {
+        api.getContestAnnouncementList(this.$route.params.contestID, this.keyword).then(res => {
           this.btnLoading = false
           this.announcements = res.data.data
         }, () => {
@@ -90,6 +112,12 @@
       goAnnouncement (announcement) {
         this.announcement = announcement
         this.listVisible = false
+      },
+      filterByKeyword () {
+        this.page = 1
+        this.announcements = []
+        this.announcement = ''
+        this.init()
       },
       goBack () {
         this.listVisible = true
