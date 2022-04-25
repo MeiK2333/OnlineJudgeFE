@@ -242,6 +242,15 @@
               </el-switch>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="账号失效时间">
+              <el-date-picker
+              v-model="user.invalid_date"
+              type="datetime"
+              placeholder="失效时间">
+            </el-date-picker>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
