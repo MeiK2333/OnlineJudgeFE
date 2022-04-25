@@ -36,6 +36,7 @@
             label="Author">
           </el-table-column>
           <el-table-column
+            v-if="isSuperAdmin"
             width="100"
             prop="visible"
             label="Visible">
@@ -48,6 +49,7 @@
             </template>
           </el-table-column>
           <el-table-column
+            v-if="isSuperAdmin"
             fixed="right"
             label="Option"
             width="200">
@@ -103,11 +105,15 @@
 <script>
   import Simditor from '../../components/Simditor.vue'
   import api from '../../api.js'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'Announcement',
     components: {
       Simditor
+    },
+    computed: {
+      ...mapGetters(['user', 'isSuperAdmin', 'isSecondary'])
     },
     data () {
       return {

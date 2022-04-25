@@ -50,9 +50,9 @@
         </el-table-column>
 
         <el-table-column fixed="right" label="Option" width="200">
-          <template slot-scope="{row}">
+          <template slot-scope="{row}" v-if="isSuperAdmin || (isSecondary && row.admin_type === 'Regular User')">
             <icon-btn name="Edit" icon="edit" @click.native="openUserDialog(row.id)"></icon-btn>
-            <icon-btn name="Delete" icon="trash" @click.native="deleteUsers([row.id])"></icon-btn>
+            <icon-btn v-if="isSuperAdmin" name="Delete" icon="trash" @click.native="deleteUsers([row.id])"></icon-btn>
           </template>
         </el-table-column>
       </el-table>
@@ -125,7 +125,7 @@
       </template>
     </Panel>
 
-    <Panel :title="$t('m.Generate_User')">
+    <Panel v-if="isSuperAdmin" :title="$t('m.Generate_User')">
       <el-form :model="formGenerateUser" ref="formGenerateUser">
         <el-row type="flex" justify="space-between">
           <el-col :span="4">
@@ -198,7 +198,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item :label="$t('m.User_Type')">
-              <el-select v-model="user.admin_type">
+              <el-select v-model="user.admin_type" :disabled="!isSuperAdmin">
                 <el-option label="Regular User" value="Regular User"></el-option>
                 <el-option label="Admin" value="Admin"></el-option>
                 <el-option label="Super Admin" value="Super Admin"></el-option>
@@ -265,6 +265,7 @@
   import papa from 'papaparse'
   import api from '../../api.js'
   import utils from '@/utils/utils'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'User',
@@ -411,7 +412,8 @@
           ids.push(user.id)
         }
         return ids
-      }
+      },
+      ...mapGetters(['isSuperAdmin', 'isSecondary', 'isRegularUser'])
     },
     watch: {
       'keyword' () {

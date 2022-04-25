@@ -75,7 +75,7 @@
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
             <icon-btn icon="download" name="Download TestCase"
                       @click.native="downloadTestCase(scope.row.id)"></icon-btn>
-            <icon-btn icon="trash" name="Delete Problem" v-if="$store.getters.user.admin_type !== '二级用户'"
+            <icon-btn icon="trash" name="Delete Problem" v-if="isSuperAdmin"
                       @click.native="deleteProblem(scope.row.id)"></icon-btn>
           </div>
         </el-table-column>
@@ -124,11 +124,15 @@
   import api from '../../api.js'
   import utils from '@/utils/utils'
   import AddProblemComponent from './AddPublicProblem.vue'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'ProblemList',
     components: {
       AddProblemComponent
+    },
+    computed: {
+      ...mapGetters(['user', 'isSuperAdmin', 'isSecondary', 'hasProblemPermission'])
     },
     data () {
       return {
