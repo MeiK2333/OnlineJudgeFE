@@ -242,7 +242,22 @@
               </el-switch>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="24">
+            <el-form-item label="创建账号上限">
+              <el-input-number
+                v-model="user.create_user_number_limit"
+                :min="0"
+                controls-position="right"
+                :disabled="user.admin_type !== '二级用户'"
+              ></el-input-number>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="已创建账号数量">
+              {{ user.create_user_number }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="账号失效时间">
               <el-date-picker
               v-model="user.invalid_date"
