@@ -202,6 +202,7 @@
                 <el-option label="Regular User" value="Regular User"></el-option>
                 <el-option label="Admin" value="Admin"></el-option>
                 <el-option label="Super Admin" value="Super Admin"></el-option>
+                <el-option label="二级用户" value="二级用户"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -211,6 +212,7 @@
                 <el-option label="None" value="None"></el-option>
                 <el-option label="Own" value="Own"></el-option>
                 <el-option label="All" value="All"></el-option>
+                <el-option label="Update Only" value="UPDATE_ONLY"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -411,6 +413,8 @@
           this.user.problem_permission = 'All'
         } else if (this.user.admin_type === 'Regular User') {
           this.user.problem_permission = 'None'
+        } else if (this.user.admin_type === '二级用户') {
+          this.user.problem_permission = 'UPDATE_ONLY'
         }
       },
       'uploadUsersCurrentPage' (page) {

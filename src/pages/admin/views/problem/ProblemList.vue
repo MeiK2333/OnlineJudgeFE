@@ -75,7 +75,7 @@
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
             <icon-btn icon="download" name="Download TestCase"
                       @click.native="downloadTestCase(scope.row.id)"></icon-btn>
-            <icon-btn icon="trash" name="Delete Problem"
+            <icon-btn icon="trash" name="Delete Problem" v-if="$store.getters.user.admin_type !== '二级用户'"
                       @click.native="deleteProblem(scope.row.id)"></icon-btn>
           </div>
         </el-table-column>

@@ -104,13 +104,15 @@ export const CONTEST_TYPE = {
 export const USER_TYPE = {
   REGULAR_USER: 'Regular User',
   ADMIN: 'Admin',
-  SUPER_ADMIN: 'Super Admin'
+  SUPER_ADMIN: 'Super Admin',
+  SECONDARY_USER: '二级用户'
 }
 
 export const PROBLEM_PERMISSION = {
   NONE: 'None',
   OWN: 'Own',
-  ALL: 'All'
+  ALL: 'All',
+  UPDATE_ONLY: 'Update Only'
 }
 
 export const STORAGE_KEY = {
