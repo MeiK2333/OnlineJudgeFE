@@ -34,6 +34,32 @@ export default {
       }
     })
   },
+  // 获取题解列表
+  getProblemAnswerList (problemID) {
+    let params = {
+      problem_id: problemID
+    }
+    return ajax('admin/problem/answer', 'get', {
+      params
+    })
+  },
+  updateAnswer (data) {
+    return ajax('admin/problem/answer', 'put', {
+      data
+    })
+  },
+  createAnswer (data) {
+    return ajax('admin/problem/answer', 'post', {
+      data
+    })
+  },
+  deleteAnswer (id) {
+    return ajax('admin/problem/answer', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
   // 删除公告
   deleteAnnouncement (id) {
     return ajax('admin/announcement', 'delete', {

@@ -75,6 +75,8 @@
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
             <icon-btn icon="download" name="Download TestCase"
                       @click.native="downloadTestCase(scope.row.id)"></icon-btn>
+            <icon-btn name="题解"
+                      @click.native="goProblemAnswer(scope.row.id)" icon="info-circle"></icon-btn>
             <icon-btn icon="trash" name="Delete Problem" v-if="isSuperAdmin"
                       @click.native="deleteProblem(scope.row.id)"></icon-btn>
           </div>
@@ -167,6 +169,9 @@
         } else if (this.routeName === 'contest-problem-list') {
           this.$router.push({name: 'edit-contest-problem', params: {problemId: problemId, contestId: this.contestId}})
         }
+      },
+      goProblemAnswer (problemId) {
+        this.$router.push({name: 'problem-answer', params: {problemId: problemId}})
       },
       goCreateProblem () {
         if (this.routeName === 'problem-list') {
