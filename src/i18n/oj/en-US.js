@@ -111,6 +111,7 @@ export const m = {
   // ContestDetail.vue
   Problems: 'Problems',
   Announcements: 'Announcements',
+  ProblemAnswer: 'Answer',
   Submissions: 'Submissions',
   Rankings: 'Rankings',
   Overview: 'Overview',
@@ -166,6 +167,7 @@ export const m = {
   Refresh: 'Refresh',
   Back: 'Back',
   No_Announcements: 'No Announcements',
+  No_Answers: 'No Answers',
   // Setting.vue
   Profile: 'Profile',
   Account: 'Account',

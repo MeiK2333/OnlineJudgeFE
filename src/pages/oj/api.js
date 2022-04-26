@@ -13,6 +13,14 @@ export default {
       params
     })
   },
+  getProblemAnswerList (problemID) {
+    let params = {
+      problem_id: problemID
+    }
+    return ajax('problem/answer', 'get', {
+      params
+    })
+  },
   getAnnouncementList (offset, limit, keyword) {
     let params = {
       offset: offset,

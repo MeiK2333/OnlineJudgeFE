@@ -111,6 +111,7 @@ export const m = {
   // ContestDetail.vue
   Problems: '题目',
   Announcements: '公告',
+  ProblemAnswer: '题解',
   Submissions: '提交信息',
   Rankings: '排名',
   Overview: '概要',
@@ -166,6 +167,7 @@ export const m = {
   Refresh: '刷新',
   Back: '返回',
   No_Announcements: '暂无公告',
+  No_Answers: '暂无题解',
   // Setting.vue
   Profile: '个人信息设置',
   Account: '账号设置',

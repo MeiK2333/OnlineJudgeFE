@@ -166,6 +166,7 @@ export const m = {
   Refresh: '重新整理',
   Back: '返回',
   No_Announcements: '暫無公告',
+  No_Answers: '暫無題解',
   // Setting.vue
   Profile: '個人資訊設定',
   Account: '帳號設定',
@@ -194,6 +195,7 @@ export const m = {
   Total_Score: '總分',
   // ProblemList.vue
   Problem_List: '試題列表',
+  ProblemAnswer: '題解',
   High: '高級',
   Mid: '中級',
   Low: '初級',
