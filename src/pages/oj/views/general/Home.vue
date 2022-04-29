@@ -1,6 +1,11 @@
 <template>
   <Row type="flex" justify="space-around">
     <Col :span="22">
+    <Carousel v-if="carousels.length" v-model="idx" trigger="hover" autoplay :autoplay-speed="6000" class="contest" style="text-align: center; margin-bottom: 20px">
+      <CarouselItem v-for="(carousel, index) of carousels" :key="index">
+        <img :src="carousel.file_path"  :alt="carousel.title" style="max-width: 100%"/>
+      </CarouselItem>
+    </Carousel>
     <panel shadow v-if="contests.length" class="contest">
       <div slot="title">
         <Button type="text"  class="contest-title" @click="goContest">{{contests[index].title}}</Button>
@@ -45,7 +50,9 @@
     data () {
       return {
         contests: [],
-        index: 0
+        index: 0,
+        idx: 0,
+        carousels: []
       }
     },
     mounted () {
@@ -53,10 +60,16 @@
       api.getContestList(0, 5, params).then(res => {
         this.contests = res.data.data.results
       })
+      this.getCarousel()
     },
     methods: {
       getDuration (startTime, endTime) {
         return time.duration(startTime, endTime)
+      },
+      getCarousel () {
+        api.getCarousel().then(res => {
+          this.carousels = res.data.data
+        })
       },
       goContest () {
         this.$router.push({

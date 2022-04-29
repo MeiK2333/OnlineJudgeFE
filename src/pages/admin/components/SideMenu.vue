@@ -9,6 +9,7 @@
       <template slot="title"><i class="el-icon-menu"></i>{{$t('m.General')}}</template>
       <el-menu-item v-if="isSuperAdmin || isSecondary" index="/user">{{$t('m.User')}}</el-menu-item>
       <el-menu-item v-if="isSuperAdmin || isSecondary" index="/announcement">{{$t('m.Announcement')}}</el-menu-item>
+      <el-menu-item v-if="isSuperAdmin" index="/carousel">轮播图管理</el-menu-item>
       <el-menu-item v-if="isSuperAdmin" index="/conf">{{$t('m.System_Config')}}</el-menu-item>
       <el-menu-item v-if="isSuperAdmin" index="/judge-server">{{$t('m.Judge_Server')}}</el-menu-item>
       <el-menu-item v-if="isSuperAdmin" index="/prune-test-case">{{$t('m.Prune_Test_Case')}}</el-menu-item>

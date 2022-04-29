@@ -34,6 +34,9 @@ export default {
       }
     })
   },
+  getCarouselList () {
+    return ajax('admin/carousel', 'get', {})
+  },
   // 获取题解列表
   getProblemAnswerList (problemID) {
     let params = {
@@ -58,6 +61,23 @@ export default {
       params: {
         id
       }
+    })
+  },
+  deleteCarousel (id) {
+    return ajax('admin/carousel', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
+  updateCarousel (data) {
+    return ajax('admin/carousel', 'put', {
+      data
+    })
+  },
+  createCarousel (data) {
+    return ajax('admin/carousel', 'post', {
+      data
     })
   },
   // 删除公告

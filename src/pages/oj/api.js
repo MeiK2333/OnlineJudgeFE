@@ -148,6 +148,9 @@ export default {
       }
     })
   },
+  getCarousel () {
+    return ajax('carousel', 'get', {})
+  },
   getContestList (offset, limit, searchParams) {
     let params = {
       offset,

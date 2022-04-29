@@ -12,9 +12,10 @@ import Login from './general/Login.vue'
 import Home from './Home.vue'
 import ProblemImportOrExport from './problem/ImportAndExport.vue'
 import ProblemAnswer from './problem/ProblemAnswer'
+import Carousel from './general/Carousel'
 
 export {
   Announcement, User, Conf, JudgeServer, Problem, ProblemList, Contest,
   ContestList, Login, Home, PruneTestCase, Dashboard, ProblemImportOrExport,
-  ProblemAnswer
+  ProblemAnswer, Carousel
 }
