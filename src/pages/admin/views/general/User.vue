@@ -251,6 +251,15 @@
               </el-switch>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="是否允许查看题解">
+              <el-switch
+                v-model="user.can_read_answer"
+                :disabled="user.admin_type !== 'Regular User'"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
           <el-col :span="24">
             <el-form-item label="创建账号上限">
               <el-input-number
@@ -447,11 +456,13 @@
         if (this.user.admin_type === 'Super Admin') {
           this.user.problem_permission = 'All'
           this.user.can_export = true
+          this.user.can_read_answer = true
         } else if (this.user.admin_type === 'Regular User') {
           this.user.problem_permission = 'None'
           this.user.can_export = false
         } else if (this.user.admin_type === '二级用户') {
           this.user.problem_permission = 'UPDATE_ONLY'
+          this.user.can_read_answer = true
         }
       },
       'uploadUsersCurrentPage' (page) {

@@ -120,7 +120,7 @@
            {{$t('m.Submissions')}}
         </VerticalMenu-item>
 
-        <VerticalMenu-item v-if="!this.contestID || OIContestRealTimePermission"
+        <VerticalMenu-item v-if="canReadAnswer && (!this.contestID || OIContestRealTimePermission)"
                            :route="{name: 'problem-answer', params: {problemID: this.problemID}}">
           <Icon type="chatbubble-working"></Icon>
           {{$t('m.ProblemAnswer')}}
@@ -476,7 +476,7 @@
       }
     },
     computed: {
-      ...mapGetters(['problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'contestStatus']),
+      ...mapGetters(['problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'contestStatus', 'canReadAnswer']),
       contest () {
         return this.$store.state.contest.contest
       },
