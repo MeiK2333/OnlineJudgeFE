@@ -73,7 +73,7 @@
             <icon-btn name="Edit" icon="edit" @click.native="goEdit(scope.row.id)"></icon-btn>
             <icon-btn v-if="contestId" name="Make Public" icon="clone"
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
-            <icon-btn icon="download" name="Download TestCase"
+            <icon-btn v-if="canExportProblem" icon="download" name="Download TestCase"
                       @click.native="downloadTestCase(scope.row.id)"></icon-btn>
             <icon-btn name="题解"
                       @click.native="goProblemAnswer(scope.row.id)" icon="info-circle"></icon-btn>
@@ -134,7 +134,7 @@
       AddProblemComponent
     },
     computed: {
-      ...mapGetters(['user', 'isSuperAdmin', 'isSecondary', 'hasProblemPermission'])
+      ...mapGetters(['user', 'isSuperAdmin', 'isSecondary', 'hasProblemPermission', 'canExportProblem'])
     },
     data () {
       return {

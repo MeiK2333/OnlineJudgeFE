@@ -242,6 +242,15 @@
               </el-switch>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="是否允许导出题目">
+              <el-switch
+                v-model="user.can_export"
+                :disabled="user.admin_type !== '二级用户'"
+              >
+              </el-switch>
+            </el-form-item>
+          </el-col>
           <el-col :span="24">
             <el-form-item label="创建账号上限">
               <el-input-number
@@ -437,8 +446,10 @@
       'user.admin_type' () {
         if (this.user.admin_type === 'Super Admin') {
           this.user.problem_permission = 'All'
+          this.user.can_export = true
         } else if (this.user.admin_type === 'Regular User') {
           this.user.problem_permission = 'None'
+          this.user.can_export = false
         } else if (this.user.admin_type === '二级用户') {
           this.user.problem_permission = 'UPDATE_ONLY'
         }

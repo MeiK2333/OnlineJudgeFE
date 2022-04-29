@@ -22,6 +22,9 @@ const getters = {
   isSuperAdmin: (state, getters) => {
     return getters.user.admin_type === USER_TYPE.SUPER_ADMIN
   },
+  canExportProblem: (state, getters) => {
+    return getters.user.admin_type === USER_TYPE.SUPER_ADMIN || (getters.user.admin_type === USER_TYPE.SECONDARY_USER && getters.user.can_export)
+  },
   isRegularUser: (state, getters) => {
     return getters.user.admin_type === USER_TYPE.REGULAR_USER
   },
