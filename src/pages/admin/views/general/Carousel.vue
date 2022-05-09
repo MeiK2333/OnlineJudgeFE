@@ -250,7 +250,7 @@
           this.carousel.title = ''
           this.carousel.visible = true
           this.carousel.file_path = ''
-          this.carousel.order = 0
+          this.carousel.order = Math.max(...this.carouselList.map(o => o.order)) + 1
           this.mode = 'create'
         }
       },

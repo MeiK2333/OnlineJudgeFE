@@ -218,7 +218,7 @@
           this.friendshipLinks.title = ''
           this.friendshipLinks.visible = true
           this.friendshipLinks.link = ''
-          this.friendshipLinks.order = 0
+          this.friendshipLinks.order = Math.max(...this.friendshipLinksList.map(o => o.order)) + 1
           this.mode = 'create'
         }
       },

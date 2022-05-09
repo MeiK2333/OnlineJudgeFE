@@ -32,6 +32,10 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="order"
+            label="Order">
+          </el-table-column>
+          <el-table-column
             prop="created_by.username"
             label="Author">
           </el-table-column>
@@ -85,6 +89,12 @@
         <el-form-item :label="$t('m.Announcement_Content')" required>
           <Simditor v-model="announcement.content"></Simditor>
         </el-form-item>
+        <el-form-item label="排序优先级（越高越靠前）" required>
+          <el-input-number
+            v-model="announcement.order"
+            placeholder="排序优先级（越高越靠前）" class="title-input">
+          </el-input-number>
+        </el-form-item>
         <div class="visible-box">
           <span>{{$t('m.Announcement_visible')}}</span>
           <el-switch
@@ -133,7 +143,8 @@
         announcement: {
           title: '',
           visible: true,
-          content: ''
+          content: '',
+          order: 0
         },
         // 对话框标题
         announcementDialogTitle: 'Edit Announcement',
@@ -202,7 +213,8 @@
             id: this.currentAnnouncementId,
             title: this.announcement.title,
             content: this.announcement.content,
-            visible: this.announcement.visible
+            visible: this.announcement.visible,
+            order: this.announcement.order
           }
         }
         if (this.contestID) {
@@ -245,6 +257,7 @@
               this.announcement.title = item.title
               this.announcement.visible = item.visible
               this.announcement.content = item.content
+              this.announcement.order = item.order
               this.mode = 'edit'
             }
           })
@@ -253,6 +266,7 @@
           this.announcement.title = ''
           this.announcement.visible = true
           this.announcement.content = ''
+          this.announcement.order = Math.max(...this.announcementList.map(o => o.order)) + 1
           this.mode = 'create'
         }
       },
@@ -262,7 +276,8 @@
           id: row.id,
           title: row.title,
           content: row.content,
-          visible: row.visible
+          visible: row.visible,
+          order: row.order
         })
       }
     },
