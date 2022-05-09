@@ -151,6 +151,9 @@ export default {
   getCarousel () {
     return ajax('carousel', 'get', {})
   },
+  getLinks () {
+    return ajax('friendship_links', 'get', {})
+  },
   getContestList (offset, limit, searchParams) {
     let params = {
       offset,

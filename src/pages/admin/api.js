@@ -37,6 +37,9 @@ export default {
   getCarouselList () {
     return ajax('admin/carousel', 'get', {})
   },
+  getFriendshipLinksList () {
+    return ajax('admin/friendship_links', 'get', {})
+  },
   // 获取题解列表
   getProblemAnswerList (problemID) {
     let params = {
@@ -70,6 +73,13 @@ export default {
       }
     })
   },
+  deleteFriendshipLinks (id) {
+    return ajax('admin/friendship_links', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
   updateCarousel (data) {
     return ajax('admin/carousel', 'put', {
       data
@@ -77,6 +87,16 @@ export default {
   },
   createCarousel (data) {
     return ajax('admin/carousel', 'post', {
+      data
+    })
+  },
+  updateFriendshipLinks (data) {
+    return ajax('admin/friendship_links', 'put', {
+      data
+    })
+  },
+  createFriendshipLinks (data) {
+    return ajax('admin/friendship_links', 'post', {
       data
     })
   },

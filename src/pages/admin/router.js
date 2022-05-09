@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 // 引入 view 组件
 import {
   Announcement, Conf, Contest, ContestList, Home, JudgeServer, Login,
-  Problem, ProblemList, User, PruneTestCase, Dashboard, ProblemImportOrExport, ProblemAnswer, Carousel
+  Problem, ProblemList, User, PruneTestCase, Dashboard, ProblemImportOrExport, ProblemAnswer, Carousel,
+  FriendshipLinks
 } from './views'
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ export default new VueRouter({
           path: '/carousel',
           name: 'carousel',
           component: Carousel
+        },
+        {
+          path: '/friendship_links',
+          name: 'friendship_links',
+          component: FriendshipLinks
         },
         {
           path: '/user',

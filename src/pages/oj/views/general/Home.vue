@@ -1,4 +1,5 @@
 <template>
+<div>
   <Row type="flex" justify="space-around">
     <Col :span="22">
     <Carousel v-if="carousels.length" v-model="idx" trigger="hover" autoplay :autoplay-speed="6000" class="contest" style="text-align: center; margin-bottom: 20px">
@@ -6,7 +7,11 @@
         <img :src="carousel.file_path"  :alt="carousel.title" style="max-width: 100%"/>
       </CarouselItem>
     </Carousel>
-    <panel shadow v-if="contests.length" class="contest">
+    </Col>
+  </Row>
+  <Row type="flex" justify="space-around">
+    <Col :span="19" style="padding-left: 9px; padding-right: 9px;">
+      <panel shadow v-if="contests.length">
       <div slot="title">
         <Button type="text"  class="contest-title" @click="goContest">{{contests[index].title}}</Button>
       </div>
@@ -33,7 +38,15 @@
     </panel>
     <Announcements class="announcement"></Announcements>
     </Col>
+
+    <Col v-if="links.length" :span="5" style="padding-left: 9px; padding-right: 9px;">
+      <Panel :padding="10">
+        <div slot="title" class="taglist-title">{{$t('m.Links')}}</div>
+        <a class="friendship-link" v-for="(link, index) of links" :key="index" :href="link.link" target="_blank">{{link.title}}</a>
+      </Panel>
+    </Col>
   </Row>
+</div>
 </template>
 
 <script>
@@ -52,7 +65,8 @@
         contests: [],
         index: 0,
         idx: 0,
-        carousels: []
+        carousels: [],
+        links: []
       }
     },
     mounted () {
@@ -61,6 +75,7 @@
         this.contests = res.data.data.results
       })
       this.getCarousel()
+      this.getLinks()
     },
     methods: {
       getDuration (startTime, endTime) {
@@ -69,6 +84,11 @@
       getCarousel () {
         api.getCarousel().then(res => {
           this.carousels = res.data.data
+        })
+      },
+      getLinks () {
+        api.getLinks().then(res => {
+          this.links = res.data.data
         })
       },
       goContest () {
@@ -96,6 +116,16 @@
   }
 
   .announcement {
-    margin-top: 20px;
+    //margin-top: 20px;
+  }
+
+  .friendship-link {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .taglist-title {
+    margin-left: -10px;
+    margin-bottom: -10px;
   }
 </style>

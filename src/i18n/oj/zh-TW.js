@@ -17,6 +17,7 @@ export const m = {
   Level: '難度',
   Score: '分數',
   Tags: '標籤',
+  Links: '友情鏈接',
   Show: '顯示',
   Submit: '提交',
   Submitting: '提交中',

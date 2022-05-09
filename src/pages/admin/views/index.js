@@ -13,9 +13,10 @@ import Home from './Home.vue'
 import ProblemImportOrExport from './problem/ImportAndExport.vue'
 import ProblemAnswer from './problem/ProblemAnswer'
 import Carousel from './general/Carousel'
+import FriendshipLinks from './general/FriendshipLinks'
 
 export {
   Announcement, User, Conf, JudgeServer, Problem, ProblemList, Contest,
   ContestList, Login, Home, PruneTestCase, Dashboard, ProblemImportOrExport,
-  ProblemAnswer, Carousel
+  ProblemAnswer, Carousel, FriendshipLinks
 }

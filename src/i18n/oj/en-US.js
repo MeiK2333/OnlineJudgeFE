@@ -17,6 +17,7 @@ export const m = {
   Level: 'Level',
   Score: 'Score',
   Tags: 'Tags',
+  Links: 'Links',
   Show: 'Show',
   Submit: 'Submit',
   Submitting: 'Submitting',
