@@ -37,6 +37,9 @@ export default {
   getCarouselList () {
     return ajax('admin/carousel', 'get', {})
   },
+  getTagsList () {
+    return ajax('admin/problem/tags', 'get', {})
+  },
   getFriendshipLinksList () {
     return ajax('admin/friendship_links', 'get', {})
   },
@@ -73,6 +76,13 @@ export default {
       }
     })
   },
+  deleteTag (id) {
+    return ajax('admin/problem/tags', 'delete', {
+      params: {
+        id
+      }
+    })
+  },
   deleteFriendshipLinks (id) {
     return ajax('admin/friendship_links', 'delete', {
       params: {
@@ -87,6 +97,16 @@ export default {
   },
   createCarousel (data) {
     return ajax('admin/carousel', 'post', {
+      data
+    })
+  },
+  createTag (data) {
+    return ajax('admin/problem/tags', 'post', {
+      data
+    })
+  },
+  updateTag (data) {
+    return ajax('admin/problem/tags', 'put', {
       data
     })
   },

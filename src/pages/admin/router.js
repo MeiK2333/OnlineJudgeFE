@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import {
   Announcement, Conf, Contest, ContestList, Home, JudgeServer, Login,
   Problem, ProblemList, User, PruneTestCase, Dashboard, ProblemImportOrExport, ProblemAnswer, Carousel,
-  FriendshipLinks
+  FriendshipLinks, Tags
 } from './views'
 Vue.use(VueRouter)
 
@@ -81,6 +81,11 @@ export default new VueRouter({
           path: '/problem/:problemId/answer',
           name: 'problem-answer',
           component: ProblemAnswer
+        },
+        {
+          path: '/problem/tags',
+          name: 'problem-tags',
+          component: Tags
         },
         {
           path: '/problem/batch_ops',
