@@ -60,6 +60,13 @@
               </el-switch>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="题目提交次数限制（0 代表不限制）" required>
+              <el-input-number
+                v-model="contest.submit_limit" class="title-input">
+              </el-input-number>
+            </el-form-item>
+          </el-col>
           <el-col :span="24">
             <el-form-item :label="$t('m.Allowed_IP_Ranges')">
               <div v-for="(range, index) in contest.allowed_ip_ranges" :key="index">
@@ -104,6 +111,7 @@
           password: '',
           real_time_rank: true,
           visible: true,
+          submit_limit: 0,
           allowed_ip_ranges: [{
             value: ''
           }]
