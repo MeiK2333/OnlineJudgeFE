@@ -5,6 +5,7 @@
         <el-table
           v-loading="loading"
           element-loading-text="loading"
+          :row-class-name="tableRowClassName"
           ref="table"
           :data="answers"
           style="width: 100%">
@@ -54,6 +55,8 @@
             label="Option"
             width="200">
             <div slot-scope="scope">
+              <icon-btn v-if="scope.row.verify === false" name="通过" icon="check" @click.native="verifyProblem(scope.row, true)"></icon-btn>
+              <icon-btn v-if="scope.row.verify === false" name="拒绝" icon="close" @click.native="verifyProblem(scope.row, false)"></icon-btn>
               <icon-btn name="Edit" icon="edit" @click.native="openAnswerDialog(scope.row.id)"></icon-btn>
               <icon-btn name="Delete" icon="trash" @click.native="deleteAnswer(scope.row.id)"></icon-btn>
             </div>
@@ -137,6 +140,44 @@
     methods: {
       init () {
         this.getAnswerList()
+      },
+      tableRowClassName ({row, rowIndex}) {
+        console.log(row.verify)
+        if (row.verify === false) {
+          return 'verify-false'
+        }
+        return ''
+      },
+      verifyProblem (row, verify) {
+        let msg = '确定通过审核吗'
+        if (!verify) {
+          msg = '确定拒绝审核吗，将会删除原始数据'
+        }
+        this.$confirm(msg, 'Warning', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // then 为确定
+          this.loading = true
+          if (!verify) {
+            api.deleteAnswer(row.id).then(res => {
+              this.loading = false
+              this.init()
+            })
+          } else {
+            api.updateAnswer({
+              ...row,
+              verify: true
+            }).then(res => {
+              this.loading = false
+              this.init()
+            })
+          }
+        }).catch(() => {
+          // catch 为取消
+          this.loading = false
+        })
       },
       getAnswerList () {
         this.problemId = this.$route.params.problemId
@@ -254,4 +295,10 @@
     width: 205px;
     float: left;
   }
+</style>
+
+<style>
+.verify-false {
+  background-color: oldlace !important;
+}
 </style>

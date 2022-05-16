@@ -14,6 +14,7 @@
         ref="table"
         :data="problemList"
         @row-dblclick="handleDblclick"
+        :row-class-name="tableRowClassName"
         style="width: 100%">
         <el-table-column
           width="100"
@@ -70,6 +71,8 @@
           label="Operation"
           width="250">
           <div slot-scope="scope">
+            <icon-btn v-if="scope.row.verify === false" name="通过" icon="check" @click.native="verifyProblem(scope.row, true)"></icon-btn>
+            <icon-btn v-if="scope.row.verify === false" name="拒绝" icon="close" @click.native="verifyProblem(scope.row, false)"></icon-btn>
             <icon-btn name="Edit" icon="edit" @click.native="goEdit(scope.row.id)"></icon-btn>
             <icon-btn v-if="contestId" name="Make Public" icon="clone"
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
@@ -162,6 +165,44 @@
     methods: {
       handleDblclick (row) {
         row.isEditing = true
+      },
+      tableRowClassName ({row, rowIndex}) {
+        console.log(row.verify)
+        if (row.verify === false) {
+          return 'verify-false'
+        }
+        return ''
+      },
+      verifyProblem (row, verify) {
+        let msg = '确定通过审核吗'
+        if (!verify) {
+          msg = '确定拒绝审核吗，将会删除原始数据'
+        }
+        this.$confirm(msg, 'Warning', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // then 为确定
+          this.loading = true
+          if (!verify) {
+            api.deleteProblem(row.id).then(res => {
+              this.loading = false
+              this.init()
+            })
+          } else {
+            api.editProblem({
+              ...row,
+              verify: true
+            }).then(res => {
+              this.loading = false
+              this.init()
+            })
+          }
+        }).catch(() => {
+          // catch 为取消
+          this.loading = false
+        })
       },
       goEdit (problemId) {
         if (this.routeName === 'problem-list') {
@@ -265,4 +306,10 @@
 </script>
 
 <style scoped lang="less">
+</style>
+
+<style>
+.verify-false {
+  background-color: oldlace !important;
+}
 </style>

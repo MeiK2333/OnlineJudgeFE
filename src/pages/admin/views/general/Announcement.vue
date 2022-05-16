@@ -7,6 +7,7 @@
           element-loading-text="loading"
           ref="table"
           :data="announcementList"
+          :row-class-name="tableRowClassName"
           style="width: 100%">
           <el-table-column
             width="100"
@@ -58,6 +59,8 @@
             label="Option"
             width="200">
             <div slot-scope="scope">
+              <icon-btn v-if="scope.row.verify === false" name="通过" icon="check" @click.native="verifyAnnouncement(scope.row.id, true)"></icon-btn>
+              <icon-btn v-if="scope.row.verify === false" name="拒绝" icon="close" @click.native="verifyAnnouncement(scope.row.id, false)"></icon-btn>
               <icon-btn name="Edit" icon="edit" @click.native="openAnnouncementDialog(scope.row.id)"></icon-btn>
               <icon-btn name="Delete" icon="trash" @click.native="deleteAnnouncement(scope.row.id)"></icon-btn>
             </div>
@@ -166,6 +169,13 @@
           this.getAnnouncementList(1)
         }
       },
+      tableRowClassName ({row, rowIndex}) {
+        console.log(row.verify)
+        if (row.verify === false) {
+          return 'verify-false'
+        }
+        return ''
+      },
       // 切换页码回调
       currentChange (page) {
         this.currentPage = page
@@ -247,6 +257,37 @@
           this.loading = false
         })
       },
+      verifyAnnouncement (id, verify) {
+        let msg = '确定通过审核吗'
+        if (!verify) {
+          msg = '确定拒绝审核吗，将会删除原始数据'
+        }
+        this.$confirm(msg, 'Warning', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // then 为确定
+          this.loading = true
+          if (!verify) {
+            api.deleteAnnouncement(id).then(res => {
+              this.loading = false
+              this.init()
+            })
+          } else {
+            api.updateAnnouncement({
+              id: id,
+              verify: true
+            }).then(res => {
+              this.loading = false
+              this.init()
+            })
+          }
+        }).catch(() => {
+          // catch 为取消
+          this.loading = false
+        })
+      },
       openAnnouncementDialog (id) {
         this.showEditAnnouncementDialog = true
         if (id !== null) {
@@ -298,5 +339,11 @@
     margin-top: 10px;
     width: 205px;
     float: left;
+  }
+</style>
+
+<style>
+  .verify-false {
+    background-color: oldlace !important;
   }
 </style>
