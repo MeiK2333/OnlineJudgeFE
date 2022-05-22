@@ -208,7 +208,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item :label="$t('m.Problem_Permission')">
-              <el-select v-model="user.problem_permission" :disabled="user.admin_type!=='Admin'">
+              <el-select v-model="user.problem_permission" :disabled="user.admin_type!=='Admin' && user.admin_type !=='二级用户'">
                 <el-option label="None" value="None"></el-option>
                 <el-option label="Own" value="Own"></el-option>
                 <el-option label="All" value="All"></el-option>
@@ -358,7 +358,7 @@
         this.showUserDialog = true
         api.getUser(id).then(res => {
           this.user = res.data.data
-          this.user.password = ''
+          // this.user.password = ''
           this.user.real_tfa = this.user.two_factor_auth
         })
       },
